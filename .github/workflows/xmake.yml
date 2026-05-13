@@ -1,6 +1,5 @@
 name: build with xmake on windows
 on:
-  push:
     workflow_dispatch:
     paths-ignore:
       - '.github/workflows/deploy-pages.yml'
