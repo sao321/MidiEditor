@@ -1,7 +1,6 @@
 name: build with xmake on windows
 on:
   push:
-    branches: [ 4.4.0 ]
     workflow_dispatch:
     paths-ignore:
       - '.github/workflows/deploy-pages.yml'
@@ -201,6 +200,9 @@ jobs:
             msvc_arch: x64
             qt_arch_install: msvc2022_64
     steps:
+      - name: Install zlib
+        run: vcpkg install zlib:x64-windows
+        
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
