@@ -1,10 +1,6 @@
 name: build with xmake on windows
 on:
     workflow_dispatch:
-    paths-ignore:
-      - '.github/workflows/deploy-pages.yml'
-      - 'README.md'
-      - 'manual/**'
 
 jobs:
   build-libsndfile:
