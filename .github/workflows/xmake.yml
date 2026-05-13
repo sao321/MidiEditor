@@ -1,7 +1,8 @@
 name: build with xmake on windows
 on:
   push:
-    branches: [ main ]
+    branches: [ 4.4.0 ]
+    workflow_dispatch:
     paths-ignore:
       - '.github/workflows/deploy-pages.yml'
       - 'README.md'
