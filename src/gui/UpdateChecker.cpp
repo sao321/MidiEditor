@@ -15,10 +15,7 @@ UpdateChecker::UpdateChecker(QObject *parent) : QObject(parent)
 
 void UpdateChecker::checkForUpdates()
 {
-    QNetworkRequest request(QUrl("https://api.github.com/repos/Meowchestra/MidiEditor/releases/latest"));
-    // GitHub API requires a User-Agent
-    request.setHeader(QNetworkRequest::UserAgentHeader, "MidiEditor");
-    manager->get(request);
+    return;
 }
 
 void UpdateChecker::onResult(QNetworkReply *reply)
