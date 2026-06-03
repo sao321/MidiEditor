@@ -3510,6 +3510,35 @@ QWidget *MainWindow::setupActions(QWidget *parent) {
     editMB->addMenu(_moveSelectedEventsToTrackMenu);
     connect(_moveSelectedEventsToTrackMenu, SIGNAL(triggered(QAction*)), this, SLOT(moveSelectedEventsToTrack(QAction*)));
 
+    editMB->addSeparator();
+
+    QAction *transposeAction = new QAction(tr("Transpose Selection"), this);
+    Appearance::setActionIcon(transposeAction, ":/run_environment/graphics/tool/transpose.png");
+    _activateWithSelections.append(transposeAction);
+    transposeAction->setShortcut(QKeySequence(QKeyCombination(Qt::CTRL, Qt::Key_T)));
+    _defaultShortcuts["transpose"] = QList<QKeySequence>() << transposeAction->shortcut();
+    connect(transposeAction, SIGNAL(triggered()), this, SLOT(transposeNSemitones()));
+    editMB->addAction(transposeAction);
+    _actionMap["transpose"] = transposeAction;
+
+    QAction *transposeOctaveUpAction = new QAction(tr("Transpose Octave Up"), this);
+    Appearance::setActionIcon(transposeOctaveUpAction, ":/run_environment/graphics/tool/transpose_up.png");
+    _activateWithSelections.append(transposeOctaveUpAction);
+    transposeOctaveUpAction->setShortcut(QKeySequence(QKeyCombination(Qt::SHIFT, Qt::Key_Up)));
+    _defaultShortcuts["transpose_up"] = QList<QKeySequence>() << transposeOctaveUpAction->shortcut();
+    connect(transposeOctaveUpAction, SIGNAL(triggered()), this, SLOT(transposeSelectedNotesOctaveUp()));
+    editMB->addAction(transposeOctaveUpAction);
+    _actionMap["transpose_up"] = transposeOctaveUpAction;
+
+    QAction *transposeOctaveDownAction = new QAction(tr("Transpose Octave Down"), this);
+    Appearance::setActionIcon(transposeOctaveDownAction, ":/run_environment/graphics/tool/transpose_down.png");
+    _activateWithSelections.append(transposeOctaveDownAction);
+    transposeOctaveDownAction->setShortcut(QKeySequence(QKeyCombination(Qt::SHIFT, Qt::Key_Down)));
+    _defaultShortcuts["transpose_down"] = QList<QKeySequence>() << transposeOctaveDownAction->shortcut();
+    connect(transposeOctaveDownAction, SIGNAL(triggered()), this, SLOT(transposeSelectedNotesOctaveDown()));
+    editMB->addAction(transposeOctaveDownAction);
+    _actionMap["transpose_down"] = transposeOctaveDownAction;
+
 // --- HIDDEN FROM GUI ---
     _deleteChannelMenu = new QMenu(tr("Remove Events from Channel..."), editMB);
     connect(_deleteChannelMenu, SIGNAL(triggered(QAction*)), this, SLOT(deleteChannel(QAction*)));
@@ -4026,35 +4055,6 @@ QWidget *MainWindow::setupActions(QWidget *parent) {
     connect(quantizeNToleActionRepeat, SIGNAL(triggered()), this, SLOT(quantizeNtole()));
     toolsMB->addAction(quantizeNToleActionRepeat);
     _actionMap["quantize_ntuplet_repeat"] = quantizeNToleActionRepeat;
-
-    toolsMB->addSeparator();
-
-    QAction *transposeAction = new QAction(tr("Transpose Selection"), this);
-    Appearance::setActionIcon(transposeAction, ":/run_environment/graphics/tool/transpose.png");
-    _activateWithSelections.append(transposeAction);
-    transposeAction->setShortcut(QKeySequence(QKeyCombination(Qt::CTRL, Qt::Key_T)));
-    _defaultShortcuts["transpose"] = QList<QKeySequence>() << transposeAction->shortcut();
-    connect(transposeAction, SIGNAL(triggered()), this, SLOT(transposeNSemitones()));
-    toolsMB->addAction(transposeAction);
-    _actionMap["transpose"] = transposeAction;
-
-    QAction *transposeOctaveUpAction = new QAction(tr("Transpose Octave Up"), this);
-    Appearance::setActionIcon(transposeOctaveUpAction, ":/run_environment/graphics/tool/transpose_up.png");
-    _activateWithSelections.append(transposeOctaveUpAction);
-    transposeOctaveUpAction->setShortcut(QKeySequence(QKeyCombination(Qt::SHIFT, Qt::Key_Up)));
-    _defaultShortcuts["transpose_up"] = QList<QKeySequence>() << transposeOctaveUpAction->shortcut();
-    connect(transposeOctaveUpAction, SIGNAL(triggered()), this, SLOT(transposeSelectedNotesOctaveUp()));
-    toolsMB->addAction(transposeOctaveUpAction);
-    _actionMap["transpose_up"] = transposeOctaveUpAction;
-
-    QAction *transposeOctaveDownAction = new QAction(tr("Transpose Octave Down"), this);
-    Appearance::setActionIcon(transposeOctaveDownAction, ":/run_environment/graphics/tool/transpose_down.png");
-    _activateWithSelections.append(transposeOctaveDownAction);
-    transposeOctaveDownAction->setShortcut(QKeySequence(QKeyCombination(Qt::SHIFT, Qt::Key_Down)));
-    _defaultShortcuts["transpose_down"] = QList<QKeySequence>() << transposeOctaveDownAction->shortcut();
-    connect(transposeOctaveDownAction, SIGNAL(triggered()), this, SLOT(transposeSelectedNotesOctaveDown()));
-    toolsMB->addAction(transposeOctaveDownAction);
-    _actionMap["transpose_down"] = transposeOctaveDownAction;
 
     toolsMB->addSeparator();
 
