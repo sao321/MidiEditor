@@ -3510,10 +3510,9 @@ QWidget *MainWindow::setupActions(QWidget *parent) {
     editMB->addMenu(_moveSelectedEventsToTrackMenu);
     connect(_moveSelectedEventsToTrackMenu, SIGNAL(triggered(QAction*)), this, SLOT(moveSelectedEventsToTrack(QAction*)));
 
+// --- HIDDEN FROM GUI ---
     _deleteChannelMenu = new QMenu(tr("Remove Events from Channel..."), editMB);
-    editMB->addMenu(_deleteChannelMenu);
     connect(_deleteChannelMenu, SIGNAL(triggered(QAction*)), this, SLOT(deleteChannel(QAction*)));
-
     for (int i = 0; i < 16; i++) {
         QVariant variant(i);
         QAction *delChannelAction = new QAction(QString::number(i), this);
@@ -3522,8 +3521,8 @@ QWidget *MainWindow::setupActions(QWidget *parent) {
     }
 
     _deleteTrackMenu = new QMenu(tr("Remove Events from Track..."), editMB);
-    editMB->addMenu(_deleteTrackMenu);
     connect(_deleteTrackMenu, SIGNAL(triggered(QAction*)), this, SLOT(deleteTrack(QAction*)));
+// -----------------------
 
     editMB->addSeparator();
 
